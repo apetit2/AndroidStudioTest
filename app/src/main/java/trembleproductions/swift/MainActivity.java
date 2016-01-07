@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -20,15 +22,20 @@ import static trembleproductions.swift.R.layout.activity_main;
 import static trembleproductions.swift.R.layout.content_main;
 
 public class MainActivity extends AppCompatActivity{
-    Button button;
-    TextView textView;
+    Button route;
+    Button clear;
+    EditText startText;
+    EditText endText;
+    //TextView textView;
+    //SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        addListenerOnButton();
+        addListenerOnRoute();
+        addListenerOnClear();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,16 +47,33 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public void addListenerOnButton(){
-        button = (Button) findViewById(R.id.button);
-        textView = (TextView) findViewById(R.id.textView);
-
-        button.setOnClickListener(new OnClickListener() {
+    public void addListenerOnClear(){
+        clear = (Button) findViewById(R.id.Clear);
+        startText = (EditText)findViewById(R.id.startText);
+        endText = (EditText)findViewById(R.id.endText);
+        clear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startText.setText("", TextView.BufferType.EDITABLE);
+                endText.setText("", TextView.BufferType.EDITABLE);
+            }
+        });
+    }
+
+    public void addListenerOnRoute(){
+        route = (Button) findViewById(R.id.Route);
+
+        //searchView = (SearchView) findViewById(R.id.searchView);
+        //textView = (TextView) findViewById(R.id.textView);
+        startText = (EditText) findViewById(R.id.startText);
+
+
+        route.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + startText.getText() + ".com"));
                 startActivity(browserIntent);
-                textView.setText("Goodbye");
+                //textView.setText("Goodbye");
             }
         });
     }
