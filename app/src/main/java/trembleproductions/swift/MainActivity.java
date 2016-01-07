@@ -18,6 +18,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import trembleproductions.swift.main.TouchImageView;
+
 import static trembleproductions.swift.R.layout.activity_main;
 import static trembleproductions.swift.R.layout.content_main;
 
@@ -26,18 +28,16 @@ public class MainActivity extends AppCompatActivity{
     Button clear;
     EditText startText;
     EditText endText;
-    ImageView imageview;
-    //TextView textView;
-    //SearchView searchView;
+    TouchImageView imageview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        imageview = (ImageView)findViewById(R.id.imageView);
-        imageview.setImageResource(R.drawable.ccm);
+        imageview = (TouchImageView)findViewById(R.id.view);
         imageview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageview.setImageResource(R.drawable.ccm);
         addListenerOnRoute();
         addListenerOnClear();
 
@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity{
 
     public void addListenerOnRoute(){
         route = (Button) findViewById(R.id.Route);
-
-        //searchView = (SearchView) findViewById(R.id.searchView);
-        //textView = (TextView) findViewById(R.id.textView);
         startText = (EditText) findViewById(R.id.startText);
 
 
@@ -77,7 +74,6 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + startText.getText() + ".com"));
                 startActivity(browserIntent);
-                //textView.setText("Goodbye");
             }
         });
     }
